@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "removeComments": true,
+    "sourceMap": true,
+    "strictNullChecks": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "outDir": "build",
+    "baseUrl": "./src",
+    "paths": {
+      // Shortcuts:
+      "@katas*": ["katas"]
+    },
+    "pretty": true
+  },
+  "exclude": ["tests/*", "*.test.ts*"]
+}
