@@ -1,8 +1,15 @@
+import * as fs from "fs";
 import {
   getNumberFromNumber3x3,
-  getNumbers3x3FromLines3x27
+  getNumbers3x3FromLines3x27,
+  getLines3x27ArrayFromString
 } from "../katas/bankOCR";
 import { numbers } from "../katas/bankOCR.types";
+
+const contentUseCase1 = fs.readFileSync(
+  "./src/katas/accountsUseCase1.txt",
+  "utf8"
+);
 
 describe("BankOCR Tests...", () => {
   describe("getNumberFromNumber3x3():", () => {
@@ -12,9 +19,27 @@ describe("BankOCR Tests...", () => {
         expect(getNumberFromNumber3x3(numbers[i].lines)).toBe(i);
       });
     }
-    // Check bads args:
+
+    // TODO:Check bads args:
   });
-  describe("getNumbers3x3FromLines3x27()", () => {
-    //
+  describe("getLines3x27ArrayFromString()", () => {
+    it("Should be an array", () => {
+      expect(typeof getLines3x27ArrayFromString(contentUseCase1)).toBe(
+        typeof []
+      );
+      expect(typeof getLines3x27ArrayFromString(contentUseCase1)[0]).toBe(
+        typeof []
+      );
+    });
+
+    it("Should be a string", () => {
+      expect(typeof getLines3x27ArrayFromString(contentUseCase1)[0][0]).toBe(
+        typeof ""
+      );
+    });
+
+    //describe("getNumbers3x3FromLines3x27()", () => {
+    //const lines = contents.split("\n");
+    //});
   });
 });
