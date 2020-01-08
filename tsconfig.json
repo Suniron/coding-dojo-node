@@ -15,5 +15,5 @@
     },
     "pretty": true
   },
-  "exclude": ["tests/*", "*.test.ts*"]
+  "exclude": ["**/*.test.ts", "**/*.types.ts"]
 }
