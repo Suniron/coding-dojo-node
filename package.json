@@ -3,7 +3,8 @@
     "start:bankocr": "yarn build && node build/katas/bankOCR.js",
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "jest"
+    "test": "jest --watch",
+    "lint": "tslint --fix --project tslint.json"
   },
   "devDependencies": {
     "@types/jest": "^24.0.25",
