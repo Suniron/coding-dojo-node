@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start:bankocr": "yarn build && node build/katas/bankOCR.js",
+    "start:bankocr": "ts-node src/katas/bankocr-kata/bankOCR.ts",
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest --watch",
@@ -13,5 +13,8 @@
     "ts-jest": "^24.2.0",
     "tslint": "^5.20.1",
     "typescript": "^3.7.4"
+  },
+  "dependencies": {
+    "ts-node": "^8.5.4"
   }
 }

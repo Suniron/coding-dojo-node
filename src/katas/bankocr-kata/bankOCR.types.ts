@@ -31,7 +31,7 @@ export const numbers = [
   },
   {
     lines: {
-      0: "  |",
+      0: "   ",
       1: "  |",
       2: "  |"
     },

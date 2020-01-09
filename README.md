@@ -18,7 +18,7 @@ See Python3 katas at Some katas of <http://codingdojo.org/kata/> with Python3
 ### ... Run
 
 Download this repo and launch `yarn start:kataname` like `yarn start:bankocr`
-It will build all TypeScript katas files into build/katas/ and run choosen kata.
+It will run TypeScript katas files without build using ts-node.
 
 ## Tests
 
