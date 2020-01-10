@@ -94,15 +94,19 @@ export const getnumbers3x3FromLines3x27 = (lines3x27: Array<string>) => {
  * Return true or false (default) depending checksum result
  */
 export const isValidChecksum: (account: number) => boolean = account => {
-  const isValid = false;
-  let checksum = 0
+  let checksum = 0;
+  let multiplicator = 1;
 
   for (let i = account.toString().length; i > 0; i--) {
-    // TODO: continue here
-    checksum += 
+    checksum += Number(account.toString()[i - 1]) * multiplicator;
+    multiplicator++;
   }
 
-  return isValid;
+  if (checksum % 11 === 0) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 // -- MAIN --
