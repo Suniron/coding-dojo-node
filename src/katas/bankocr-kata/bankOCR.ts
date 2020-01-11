@@ -1,5 +1,8 @@
 import * as fs from "fs";
-import { numbers, Number3x3Lines } from "./bankOCR.types";
+import { numbers, Number3x3Lines, BankAccount } from "./bankOCR.types";
+
+// TODO: Add type to != elements
+// TODO2: Use map where as possible
 
 /**
  *
@@ -10,10 +13,10 @@ import { numbers, Number3x3Lines } from "./bankOCR.types";
 export const getNumberFromNumber3x3 = (numb: Number3x3Lines) => {
   for (let i = 0; i < numbers.length; i++) {
     if (JSON.stringify(numbers[i].lines) == JSON.stringify(numb)) {
-      return numbers[i].value;
+      return numbers[i].value.toString();
     } //
   }
-  return null;
+  return "?";
 };
 
 export const getLines3x27ArrayFromString = (text: string) => {
@@ -39,7 +42,9 @@ export const getLines3x27ArrayFromString = (text: string) => {
   return arrayOf3x27Lines;
 };
 
-export const getnumbers3x3FromLines3x27 = (lines3x27: Array<string>) => {
+export const getNumbers3x3InsideAccountLine3x27 = (
+  lines3x27: Array<string>
+) => {
   const numbers3x3: Array<Number3x3Lines> = [];
 
   let lines: Array<Array<string>> = [];
@@ -93,7 +98,7 @@ export const getnumbers3x3FromLines3x27 = (lines3x27: Array<string>) => {
  *
  * Return true or false (default) depending checksum result
  */
-export const isValidChecksum: (account: number) => boolean = account => {
+export const isValidChecksum: (account: string) => boolean = account => {
   let checksum = 0;
   let multiplicator = 1;
 
@@ -109,9 +114,56 @@ export const isValidChecksum: (account: number) => boolean = account => {
   }
 };
 
+export const getCheckedAccount: (
+  accountNumber: string
+) => BankAccount = accountNumber => {
+  // Store bank account:
+  const bankAccount: BankAccount = {
+    number: accountNumber.toString(),
+    isValid: false
+  };
+
+  /*
+  // 1. Get number:
+  bankAccount.number = getNumbers3x3InsideAccountLine3x27(accountLine3x27)
+    .map(number3x3 => getNumberFromNumber3x3(number3x3))
+    .join("");
+  */
+
+  // Get validity:
+  bankAccount.isValid =
+    bankAccount.number.length === 9
+      ? isValidChecksum(bankAccount.number)
+      : false;
+
+  // Get reason
+  if (!bankAccount.isValid) {
+    bankAccount.number.includes("?")
+      ? (bankAccount.reason = "ILL")
+      : (bankAccount.reason = "ERR");
+  }
+
+  return bankAccount;
+};
+
+export const getAccountsFromString = (fileContent: string) => {
+  const accounts: Array<string> = getLines3x27ArrayFromString(fileContent).map(
+    lines3x27 =>
+      getNumbers3x3InsideAccountLine3x27(lines3x27)
+        .map(number3x3 => getNumberFromNumber3x3(number3x3))
+        .join("")
+  );
+
+  return accounts;
+};
+
 // -- MAIN --
+// Todo: can launch from same folder (path)
+// Todo2: replace reading method by async way
+// Todo3: use map with Array
 if (require.main === module) {
   // USE CASE n°1:
+  console.log("\nUse case 1:");
   // 1. get the file
   const fileUseCase1 = fs.readFileSync(
     "./src/katas/bankocr-kata/accountsUseCase1.txt",
@@ -123,19 +175,32 @@ if (require.main === module) {
   const accountsUseCase1 = [];
 
   for (let line in linesUseCase1) {
-    const numbers = getnumbers3x3FromLines3x27(
+    const numbers = getNumbers3x3InsideAccountLine3x27(
       linesUseCase1[line]
     ).map(number3x3 => getNumberFromNumber3x3(number3x3));
     accountsUseCase1.push(numbers.join(""));
   }
 
   // 3. show account numbers
-  console.log(
-    "Account numbers for use case 1:\n" +
-      accountsUseCase1.map(account => account).join(",\n")
+  console.log(accountsUseCase1.map(account => account).join(",\n"));
+
+  // USE CASE n°3:
+  console.log("\nUse case 3:");
+  // 1. get the file
+  const fileUseCase3 = fs.readFileSync(
+    "./src/katas/bankocr-kata/accountsUseCase3.txt",
+    "utf8"
   );
 
-  // USE CASE n°2:
-  // USE CASE n°3:
+  // 2. parse the file
+  const accountsUseCase3 = getAccountsFromString(fileUseCase3).map(
+    accountNumber => {
+      const account = getCheckedAccount(accountNumber);
+      return `${account.number} ${!account.isValid ? account.reason : ""}`;
+    }
+  );
+
+  // 3. put in a new file
+  // TODO: Continue here
   // USE CASE n°4:
 }

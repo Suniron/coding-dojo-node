@@ -4,9 +4,9 @@
     "module": "commonjs",
     "removeComments": true,
     "sourceMap": true,
+    "strict": true,
     "strictNullChecks": false,
     "skipLibCheck": true,
-    "strict": true,
     "outDir": "build",
     "baseUrl": "./src",
     "paths": {

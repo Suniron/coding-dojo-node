@@ -20,6 +20,14 @@ export interface Numbers3x3 {
   "8": Number3x3;
   "9": Number3x3;
 }
+type failReasons = "ILL" | "ERR";
+
+export interface BankAccount {
+  number: string; // Need a string to escape 0 leading errors like 000000051
+  isValid: boolean;
+  reason?: failReasons;
+}
+
 export const numbers = [
   {
     lines: {
@@ -102,57 +110,3 @@ export const numbers = [
     value: 9
   }
 ];
-/*
-export const numbers3x3 = {
-  "0": {
-    0: " _ ",
-    1: "| |",
-    2: "|_|"
-  },
-  "1": {
-    0: "  |",
-    1: "  |",
-    2: "  |"
-  },
-  "2": {
-    0: " _ ",
-    1: " _|",
-    2: "|_ "
-  },
-  "3": {
-    0: " _ ",
-    1: " _|",
-    2: " _|"
-  },
-  "4": {
-    0: "   ",
-    1: "|_|",
-    2: "  |"
-  },
-  "5": {
-    0: " _ ",
-    1: "|_ ",
-    2: " _|"
-  },
-  "6": {
-    0: " _ ",
-    1: "|_ ",
-    2: "|_|"
-  },
-  "7": {
-    0: " _ ",
-    1: "  |",
-    2: "  |"
-  },
-  "8": {
-    0: " _ ",
-    1: "|_|",
-    2: "|_|"
-  },
-  "9": {
-    0: " _ ",
-    1: "|_|",
-    2: " _|"
-  }
-};
-*/
