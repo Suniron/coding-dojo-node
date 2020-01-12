@@ -88,6 +88,7 @@ export const getNumbers3x3InsideAccountLine3x27 = (
 
     numbers3x3.push(tempNumber3x3);
   }
+  console.log(numbers3x3);
 
   return numbers3x3;
 };
