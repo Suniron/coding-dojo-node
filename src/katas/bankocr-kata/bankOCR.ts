@@ -124,13 +124,6 @@ export const getCheckedAccount: (
     isValid: false
   };
 
-  /*
-  // 1. Get number:
-  bankAccount.number = getNumbers3x3InsideAccountLine3x27(accountLine3x27)
-    .map(number3x3 => getNumberFromNumber3x3(number3x3))
-    .join("");
-  */
-
   // Get validity:
   bankAccount.isValid =
     bankAccount.number.length === 9
@@ -196,14 +189,19 @@ if (require.main === module) {
   );
 
   // 2. parse the file
-  const accountsUseCase3 = getAccountsFromString(fileUseCase3).map(
-    accountNumber => {
+  const accountsUseCase3 = getAccountsFromString(fileUseCase3)
+    .map(accountNumber => {
       const account = getCheckedAccount(accountNumber);
       return `${account.number} ${!account.isValid ? account.reason : ""}`;
-    }
-  );
+    })
+    .join("\n");
 
   // 3. put in a new file
+  fs.writeFile(
+    "./src/katas/bankocr-kata/accountsUseCase3-output.txt",
+    accountsUseCase3,
+    () => console.log("The file accountsUseCase3-output.txt was created.")
+  );
   // TODO: Continue here
   // USE CASE n°4:
 }

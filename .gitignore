@@ -105,3 +105,6 @@ dist
 
 # Typescript build
 build/
+
+# Output made by katas
+*-output.txt
