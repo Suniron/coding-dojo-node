@@ -20,6 +20,7 @@ export const getNumberFromNumber3x3 = (numb: Number3x3Lines) => {
 };
 
 export const getLines3x27ArrayFromString = (text: string) => {
+  // TODO: Use map
   const lines = text.split("\n");
   const arrayOf3x27Lines: Array<Array<string>> = [];
 
@@ -28,7 +29,7 @@ export const getLines3x27ArrayFromString = (text: string) => {
 
   for (const i in lines) {
     if (count < 3) {
-      tempArray.push(lines[i]);
+      tempArray.push(lines[i].replace("\r", ""));
       count++;
     } else {
       // lines[i] should be a blank line & multiple of 4
@@ -88,7 +89,6 @@ export const getNumbers3x3InsideAccountLine3x27 = (
 
     numbers3x3.push(tempNumber3x3);
   }
-  console.log(numbers3x3);
 
   return numbers3x3;
 };
@@ -151,7 +151,9 @@ export const getAccountsFromString = (fileContent: string) => {
   const accounts: Array<string> = getLines3x27ArrayFromString(fileContent).map(
     lines3x27 =>
       getNumbers3x3InsideAccountLine3x27(lines3x27)
-        .map(number3x3 => getNumberFromNumber3x3(number3x3))
+        .map(number3x3 => {
+          return getNumberFromNumber3x3(number3x3);
+        })
         .join("")
   );
 
