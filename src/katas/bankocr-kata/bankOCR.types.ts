@@ -1,8 +1,5 @@
-export interface Number3x3Lines {
-  0: string;
-  1: string;
-  2: string;
-}
+export type Number3x3Lines = Array<string>;
+
 export interface Number3x3 {
   lines: Number3x3Lines;
   value: number;
@@ -27,8 +24,96 @@ export interface BankAccount {
   isValid: boolean;
   reason?: failReasons;
 }
-
 export const numbers = [
+  {
+    lines: [" _ ", "| |", "|_|"],
+    value: 0
+  },
+  {
+    lines: ["   ", "  |", "  |"],
+    value: 1
+  },
+  {
+    lines: [" _ ", " _|", "|_ "],
+    value: 2
+  },
+  {
+    lines: [" _ ", " _|", " _|"],
+    value: 3
+  },
+  {
+    lines: ["   ", "|_|", "  |"],
+    value: 4
+  },
+  {
+    lines: [" _ ", "|_ ", " _|"],
+    value: 5
+  },
+  {
+    lines: [" _ ", "|_ ", "|_|"],
+    value: 6
+  },
+  {
+    lines: [" _ ", "  |", "  |"],
+    value: 7
+  },
+  {
+    lines: [" _ ", "|_|", "|_|"],
+    value: 8
+  },
+  {
+    lines: [" _ ", "|_|", " _|"],
+    value: 9
+  }
+];
+
+/*
+export const numbers = [
+  {
+    lines: {
+      0: " _ ",
+      1: "| |",
+      2: "|_|"
+    },
+    value: 0
+  },
+  {
+    lines: {
+      0: "   ",
+      1: "  |",
+      2: "  |"
+    },
+    value: 1
+  },
+  {
+    lines: {
+      0: " _ ",
+      1: " _|",
+      2: "|_ "
+    },
+    value: 2
+  },
+  {
+    lines: {
+      0: " _ ",
+      1: " _|",
+      2: " _|"
+    },
+    value: 3
+  },
+  {
+    lines: {
+      0: "   ",
+      1: "|_|",
+      2: "  |"
+    },
+    value: 4
+  },
+  {
+    lines: {
+      0: " _ ",
+      1: "|_ ",
+      2: " _|"export const numbers = [
   {
     lines: {
       0: " _ ",
@@ -110,3 +195,40 @@ export const numbers = [
     value: 9
   }
 ];
+    },
+    value: 5
+  },
+  {
+    lines: {
+      0: " _ ",
+      1: "|_ ",
+      2: "|_|"
+    },
+    value: 6
+  },
+  {
+    lines: {
+      0: " _ ",
+      1: "  |",
+      2: "  |"
+    },
+    value: 7
+  },
+  {
+    lines: {
+      0: " _ ",
+      1: "|_|",
+      2: "|_|"
+    },
+    value: 8
+  },
+  {
+    lines: {
+      0: " _ ",
+      1: "|_|",
+      2: " _|"
+    },
+    value: 9
+  }
+];
+*/

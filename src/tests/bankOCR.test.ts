@@ -30,13 +30,7 @@ describe("BankOCR Tests...", () => {
 
     // TODO:Check with bads args:
     test("Bad number 3x3 should be ?", () => {
-      expect(
-        getNumberFromNumber3x3({
-          0: "   ",
-          1: " _|",
-          2: "|_ "
-        })
-      ).toBe("?");
+      expect(getNumberFromNumber3x3(["   ", " _|", "|_ "])).toBe("?");
     });
   });
   describe("getLines3x27ArrayFromString()", () => {
@@ -112,16 +106,8 @@ describe("BankOCR Tests...", () => {
   });
 
   describe("getSimilarNumbers()", () => {
-    /*
     test("Number 1 should have one similar number (7)", () => {
-      expect(
-        getSimilarNumbers({
-          "0": "  |",
-          "1": "  |",
-          "2": "  |"
-        }).length
-      ).toBe(1);
+      expect(getSimilarNumbers(["   ", "  |", "  |"]).length).toBe(1);
     });
-    */
   });
 });
