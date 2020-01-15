@@ -161,11 +161,29 @@ export const getAccountsFromString = (fileContent: string) => {
 export const getSimilarNumbers = (numb: Number3x3Lines) => {
   const similarNumbers3x3: Array<Number3x3> = [];
 
+  const lines = [numb[0], numb[1], numb[2]];
+
+  for (let lineNb = 0; lineNb <= 2; lineNb++) {
+    for (let charNb = 0; charNb <= 2; charNb++) {
+      let tempNumber = lines;
+      const currentChar = tempNumber[lineNb][charNb];
+
+      if (currentChar === "_") {
+        tempNumber[lineNb][charNb] = "|"; // TODO: Continue here
+      }
+    }
+  }
+
   // Each line of number:
   for (const [key, line] of Object.entries(numb)) {
     // Each char of line
     for (const char of line) {
-      // Check number with one change
+      const tempNumber = numb;
+
+      // Change on char of tempNumber
+      // Check number with this change (tempNumber)
+      // Add if it's a number
+      // Try again with other char (pipe or underscore)
     }
   }
 
