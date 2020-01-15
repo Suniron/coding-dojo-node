@@ -1,5 +1,10 @@
 import * as fs from "fs";
-import { numbers, Number3x3Lines, BankAccount } from "./bankOCR.types";
+import {
+  numbers,
+  Number3x3Lines,
+  BankAccount,
+  Number3x3
+} from "./bankOCR.types";
 
 // TODO: Add type to != elements
 // TODO2: Use map where as possible
@@ -151,6 +156,20 @@ export const getAccountsFromString = (fileContent: string) => {
   );
 
   return accounts;
+};
+
+export const getSimilarNumbers = (numb: Number3x3Lines) => {
+  const similarNumbers3x3: Array<Number3x3> = [];
+
+  // Each line of number:
+  for (const [key, line] of Object.entries(numb)) {
+    // Each char of line
+    for (const char of line) {
+      // Check number with one change
+    }
+  }
+
+  return similarNumbers3x3;
 };
 
 // -- MAIN --

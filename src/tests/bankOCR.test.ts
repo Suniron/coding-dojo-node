@@ -5,7 +5,8 @@ import {
   getLines3x27ArrayFromString,
   isValidChecksum,
   getCheckedAccount,
-  getAccountsFromString
+  getAccountsFromString,
+  getSimilarNumbers
 } from "../katas/bankocr-kata/bankOCR";
 import { numbers } from "../katas/bankocr-kata/bankOCR.types";
 
@@ -107,6 +108,18 @@ describe("BankOCR Tests...", () => {
       expect(getAccountsFromString(contentUseCase3).toString()).toBe(
         ["000000051", "49006771?", "1234?678?"].toString()
       );
+    });
+  });
+
+  describe("getSimilarNumbers()", () => {
+    test("should ", () => {
+      expect(
+        getSimilarNumbers({
+          "0": "  |",
+          "1": "  |",
+          "2": "  |"
+        })
+      ).toBe([numbers[0], numbers[7]]);
     });
   });
 });
