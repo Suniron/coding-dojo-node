@@ -1,6 +1,7 @@
 {
   "scripts": {
     "start:bankocr": "ts-node src/katas/bankocr-kata/bankOCR.ts",
+    "start:birthdays": "ts-node src/katas/birthdaygreetings-kata/birthdayGreetings.ts",
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest --watch",
@@ -9,12 +10,15 @@
   "devDependencies": {
     "@types/jest": "^24.0.25",
     "@types/node": "^13.1.5",
+    "@types/sqlite3": "^3.1.6",
     "jest": "^24.9.0",
     "ts-jest": "^24.2.0",
     "tslint": "^5.20.1",
     "typescript": "^3.7.4"
   },
   "dependencies": {
+    "mocha": "^7.0.0",
+    "sqlite3": "^4.1.1",
     "ts-node": "^8.5.4"
   }
 }
