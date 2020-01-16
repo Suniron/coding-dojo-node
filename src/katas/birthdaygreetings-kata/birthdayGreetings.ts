@@ -1,12 +1,6 @@
-import * as sq from "sqlite3";
+import { insertPersonIntoDbIfNotExist } from "./birthdayGreetings.db";
 
-// Enable debug messages:
-sq.verbose();
-
-// Get database:
-const db = new sq.Database("./src/katas/birthdayGreetings.db3");
-
-class person {
+export class Person {
   firstName: string = null;
   lastName: string = null;
   dateOfBirth: Date = null;
@@ -29,8 +23,44 @@ class person {
 }
 
 // -- FUNCTIONS --
-// getPersonsFromFile
-// putPersonsToDb
+export const getPersonsFromFileContent = (content: string) => {
+  const persons: Array<Person> = [];
+
+  // Delete the first line and browse all line to get != persons
+  content
+    .replace("last_name, first_name, date_of_birth, email\n", "")
+    .split("\n")
+    .forEach(line => {
+      const elements = line.split(",");
+      if (elements.length === 4) {
+        persons.push(
+          new Person(
+            elements[0],
+            elements[1],
+            new Date(elements[2]),
+            elements[3]
+          )
+        );
+      } else {
+        return;
+      }
+    });
+
+  return persons;
+};
+
+const putPersonsIntoDb = (persons: Array<Person>) => {};
+
 // getPersonsFromDb
 
 // -- MAIN --
+if (require.main === module) {
+  const etienne = new Person(
+    "Etienne",
+    "Blanc",
+    new Date("1994/04/15"),
+    "etienne.blanc94@gmail.com"
+  );
+
+  insertPersonIntoDbIfNotExist(etienne);
+}
