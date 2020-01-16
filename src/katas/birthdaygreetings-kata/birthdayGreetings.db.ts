@@ -34,21 +34,36 @@ const initDbTable = (
   });
 };
 
-export const insertPersonIntoDbIfNotExist = (person: Person) => {
+export const insertPerson = (person: Person) => {
   //yyyy-mm-yy: person.dateOfBirth.toISOString().split("T")[0]
   const cmdSQL =
     "INSERT INTO persons(first_name, last_name, birthday, email)" +
-    " VALUES (${person.firstName}, ${person.lastName}, ${person.dateOfBirth})";
+    `VALUES ("${person.firstName}", "${
+      person.lastName
+    }", "${person.dateOfBirth.toDateString()}","${person.email}")`;
   /*+` SELECT ${person.firstName}, ${person.lastName}, "${person.dateOfBirth}", "${person.email}"` +
     `WHERE NOT EXISTS(SELECT 1 FROM persons WHERE first_name = ${person.firstName} AND last_name = ${person.lastName})`;*/
 
   db.run(cmdSQL, err => {
     if (err) {
-      console.error("Error:", err);
+      //console.error("Error:", err);
     } else {
       console.log(person.firstName, person.lastName, "was added to bdd.");
     }
   });
+};
+
+export const getPersons = () => {
+  const result: any = [];
+
+  db.all("SELECT * FROM persons", [], (err, rows) => {
+    if (err) {
+      throw err;
+    }
+    result.push(rows);
+  });
+
+  return result;
 };
 
 // Launch this file to init database and table if not exist.

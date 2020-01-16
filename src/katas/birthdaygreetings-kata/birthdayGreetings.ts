@@ -1,4 +1,5 @@
-import { insertPersonIntoDbIfNotExist } from "./birthdayGreetings.db";
+import * as database from "./birthdayGreetings.db";
+import * as fs from "fs";
 
 export class Person {
   firstName: string = null;
@@ -49,18 +50,28 @@ export const getPersonsFromFileContent = (content: string) => {
   return persons;
 };
 
-const putPersonsIntoDb = (persons: Array<Person>) => {};
+const storePersons = async (persons: Array<Person>) => {
+  persons.forEach(person => database.insertPerson(person));
+};
 
 // getPersonsFromDb
 
 // -- MAIN --
 if (require.main === module) {
-  const etienne = new Person(
-    "Etienne",
-    "Blanc",
-    new Date("1994/04/15"),
-    "etienne.blanc94@gmail.com"
+  fs.readFile(
+    "./src/katas/birthdaygreetings-kata/birthdayDates.txt",
+    (err, data) => {
+      if (err) {
+        console.error("Can't open txt file:", err);
+      } else {
+        // Get persons objects:
+        const persons = getPersonsFromFileContent(data.toString());
+        // Try to store persons in database:
+        persons.forEach(person => database.insertPerson(person));
+        // Get all persons from database:
+        const gettedPersons = database.getPersons();
+        console.log("->", gettedPersons);
+      }
+    }
   );
-
-  insertPersonIntoDbIfNotExist(etienne);
 }
