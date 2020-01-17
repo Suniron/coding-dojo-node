@@ -1,5 +1,6 @@
 import * as sq from "sqlite3";
 import { Person } from "./birthdayGreetings";
+import { PersonInDB } from "./birthdayGreetings.types";
 
 // Enable debug messages:
 sq.verbose();
@@ -34,15 +35,28 @@ const initDbTable = (
   });
 };
 
+const convertPersonFromDbToClass = (person: PersonInDB) => {
+  return new Person(
+    person.first_name,
+    person.last_name,
+    new Date(person.birthday),
+    person.email
+  );
+};
+
 export const insertPerson = (person: Person) => {
   //yyyy-mm-yy: person.dateOfBirth.toISOString().split("T")[0]
   const cmdSQL =
     "INSERT INTO persons(first_name, last_name, birthday, email)" +
-    `VALUES ("${person.firstName}", "${
-      person.lastName
-    }", "${person.dateOfBirth.toDateString()}","${person.email}")`;
-  /*+` SELECT ${person.firstName}, ${person.lastName}, "${person.dateOfBirth}", "${person.email}"` +
-    `WHERE NOT EXISTS(SELECT 1 FROM persons WHERE first_name = ${person.firstName} AND last_name = ${person.lastName})`;*/
+    'VALUES ("' +
+    person.firstName +
+    '","' +
+    person.lastName +
+    '","' +
+    person.dateOfBirth.toDateString() +
+    '","' +
+    person.email +
+    '")';
 
   db.run(cmdSQL, err => {
     if (err) {
@@ -53,17 +67,34 @@ export const insertPerson = (person: Person) => {
   });
 };
 
-export const getPersons = () => {
-  const result: any = [];
-
-  db.all("SELECT * FROM persons", [], (err, rows) => {
+export const getPersons = (callback: (persons: Array<Person>) => void) => {
+  db.all("SELECT * FROM persons", [], (err, rows: Array<PersonInDB>) => {
     if (err) {
       throw err;
     }
-    result.push(rows);
+    const persons = rows.map(person => convertPersonFromDbToClass(person));
+    callback(persons);
   });
+};
 
-  return result;
+/**
+ *
+ * @param birthday - Birthdate in Date() format
+ * @param callback - Function which is run after get data
+ *
+ * TODO: Get with just month and day
+ */
+export const getPersonsWhoIsBirthday = (
+  birthday: Date,
+  callback: (persons: Array<Person>) => void
+) => {
+  db.all(
+    `SELECT * FROM persons WHERE birthday = "${birthday.toDateString()}"`,
+    (err, rows: Array<PersonInDB>) => {
+      const persons = rows.map(person => convertPersonFromDbToClass(person));
+      callback(persons);
+    }
+  );
 };
 
 // Launch this file to init database and table if not exist.

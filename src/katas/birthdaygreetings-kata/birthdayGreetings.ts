@@ -6,6 +6,7 @@ export class Person {
   lastName: string = null;
   dateOfBirth: Date = null;
   email: string = null;
+
   constructor(
     firstName: string,
     lastName: string,
@@ -18,8 +19,23 @@ export class Person {
     this.email = email;
   }
 
-  sendBirthdayGreetings = () => {
-    // TODO
+  sendBirthdayGreetings = (way: "email" | "sms") => {
+    const message = {
+      subject: "Happy birthday !",
+      body: `Happy birthday, dear ${this.firstName}`
+    };
+
+    way === "email"
+      ? this.sendEmail(message.subject, message.body)
+      : this.sendSMS(message.subject, message.body);
+  };
+
+  private sendEmail = (subject: string, body: string) => {
+    // TODO: Get API to send Email
+  };
+
+  private sendSMS = (subject: string, body: string) => {
+    // TODO: Get API to send SMS and contact number
   };
 }
 
@@ -32,7 +48,7 @@ export const getPersonsFromFileContent = (content: string) => {
     .replace("last_name, first_name, date_of_birth, email\n", "")
     .split("\n")
     .forEach(line => {
-      const elements = line.split(",");
+      const elements = line.replace(" ", "").split(",");
       if (elements.length === 4) {
         persons.push(
           new Person(
@@ -50,14 +66,26 @@ export const getPersonsFromFileContent = (content: string) => {
   return persons;
 };
 
-const storePersons = async (persons: Array<Person>) => {
-  persons.forEach(person => database.insertPerson(person));
-};
+export const getBirthdayReminderNote = (
+  senderFirstName: string,
+  persons: Array<Person>
+) => {
+  if (persons.length === 0) return null;
 
-// getPersonsFromDb
+  const message = {
+    subject: "Birthday Reminder",
+    header: `Dear ${senderFirstName},`,
+    body: `Today is ${persons
+      .map(person => person.firstName + " " + person.lastName)
+      .join(",")}'s birthday. Don't forget to send him message !`
+  };
+
+  return message;
+};
 
 // -- MAIN --
 if (require.main === module) {
+  // Send file to database:
   fs.readFile(
     "./src/katas/birthdaygreetings-kata/birthdayDates.txt",
     (err, data) => {
@@ -68,10 +96,22 @@ if (require.main === module) {
         const persons = getPersonsFromFileContent(data.toString());
         // Try to store persons in database:
         persons.forEach(person => database.insertPerson(person));
-        // Get all persons from database:
-        const gettedPersons = database.getPersons();
-        console.log("->", gettedPersons);
       }
     }
   );
+
+  // Send birthdays greetings:
+  database.getPersonsWhoIsBirthday(new Date(Date.now()), persons =>
+    persons.forEach(person => person.sendBirthdayGreetings("email"))
+  );
+
+  // Reminder note:
+  database.getPersonsWhoIsBirthday(new Date("1994-04-15"), persons => {
+    const reminderMsg = getBirthdayReminderNote("Etienne BLANC", persons);
+    console.log(
+      reminderMsg.subject + "\n\n",
+      reminderMsg.header + "\n",
+      reminderMsg.body
+    );
+  });
 }
