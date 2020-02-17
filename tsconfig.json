@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "commonjs",
+    "target": "ES5",
+    //"module": "commonjs", // Fail with exports
     "removeComments": true,
     "sourceMap": true,
     "strict": true,
