@@ -8,7 +8,7 @@ See Python3 katas at Some katas of <http://codingdojo.org/kata/> with Python3
 - Yarn
 - Node 12.9.1 or higher
 
-## How to ...
+## How to
 
 ### ... Install
 
@@ -21,13 +21,24 @@ Download this repo and launch `yarn start:*kataname*` like `yarn start:bankocr`
 
 It will run TypeScript katas files without build using ts-node.
 
-### bankocr
+#### BankOCR
 
 `yarn start:bankocr`
 
-### birtdaygreetings
+#### Birthdays
 
 `yarn start:birthdays`
+
+#### Pacman
+
+Code: <https://github.com/Suniron/pacman-react>
+Preview: <https://pacman-codingdojo.netlify.app/>
+
+#### Langton Ant
+
+in progress
+
+> > > > > > > 8d84f59b67ea6b53d83e56d918c5f3bf80d866de
 
 ## Tests
 
