@@ -2,23 +2,24 @@
   "scripts": {
     "start:bankocr": "ts-node src/katas/bankocr/bankOCR.ts",
     "start:birthdays": "ts-node src/katas/birthdaygreetings/birthdayGreetings.ts",
+    "start:bowling": "ts-node src/katas/bowling/bowling.ts",
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest --watch",
     "lint": "tslint --fix --project tslint.json"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.25",
-    "@types/node": "^13.1.5",
-    "@types/sqlite3": "^3.1.6",
-    "jest": "^24.9.0",
-    "ts-jest": "^24.2.0",
-    "tslint": "^5.20.1",
-    "typescript": "^3.7.4"
+    "@types/jest": "^25.2.3",
+    "@types/node": "^14.0.6",
+    "@types/sqlite3": "latest",
+    "jest": "latest",
+    "ts-jest": "latest",
+    "tslint": "^6.1.2",
+    "typescript": "latest"
   },
   "dependencies": {
-    "mocha": "^7.0.0",
-    "sqlite3": "^4.1.1",
-    "ts-node": "^8.5.4"
+    "mocha": "latest",
+    "sqlite3": "latest",
+    "ts-node": "latest"
   }
 }

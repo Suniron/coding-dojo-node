@@ -29,6 +29,10 @@ It will run TypeScript katas files without build using ts-node.
 
 `yarn start:birthdays`
 
+#### Bowling
+
+`yarn start:bowling`
+
 #### Pacman
 
 Code: <https://github.com/Suniron/pacman-react>

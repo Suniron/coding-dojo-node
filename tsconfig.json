@@ -9,10 +9,12 @@
     "skipLibCheck": true,
     "outDir": "build",
     "baseUrl": "./src",
+    "downlevelIteration": true,
     "paths": {
       // Shortcuts:
       "@katas*": ["katas"]
     },
+    "types": ["color-name", "jest"],
     "pretty": true
   },
   "exclude": ["**/*.test.ts", "**/*.types.ts"]
