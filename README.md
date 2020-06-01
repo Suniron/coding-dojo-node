@@ -36,9 +36,8 @@ Preview: <https://pacman-codingdojo.netlify.app/>
 
 #### Langton Ant
 
-in progress
-
-> > > > > > > 8d84f59b67ea6b53d83e56d918c5f3bf80d866de
+Code: <https://github.com/Suniron/pacman-react>
+Preview: <https://langtonant-codingdojo.netlify.app/>
 
 ## Tests
 
