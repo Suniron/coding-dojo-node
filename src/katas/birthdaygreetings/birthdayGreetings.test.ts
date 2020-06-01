@@ -1,11 +1,8 @@
-import {
-  Person,
-  getPersonsFromFileContent
-} from "../katas/birthdaygreetings-kata/birthdayGreetings";
+import { Person, getPersonsFromFileContent } from "./birthdayGreetings";
 import * as fs from "fs";
 
 const contentBirthdaysFile = fs.readFileSync(
-  "./src/katas/birthdaygreetings-kata/birthdayDates.txt",
+  "./src/katas/birthdaygreetings/birthdayDates.txt",
   "utf8"
 );
 

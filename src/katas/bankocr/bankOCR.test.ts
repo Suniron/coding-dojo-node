@@ -6,16 +6,16 @@ import {
   isValidChecksum,
   getCheckedAccount,
   getAccountsFromString,
-  getSimilarNumbers
-} from "../katas/bankocr-kata/bankOCR";
-import { numbers } from "../katas/bankocr-kata/bankOCR.types";
+  getSimilarNumbers,
+} from "./bankOCR";
+import { numbers } from "./bankOCR.types";
 
 const contentUseCase1 = fs.readFileSync(
-  "./src/katas/bankocr-kata/accountsUseCase1.txt",
+  "./src/katas/bankocr/accountsUseCase1.txt",
   "utf8"
 );
 const contentUseCase3 = fs.readFileSync(
-  "./src/katas/bankocr-kata/accountsUseCase3.txt",
+  "./src/katas/bankocr/accountsUseCase3.txt",
   "utf8"
 );
 
@@ -84,7 +84,7 @@ describe("BankOCR Tests...", () => {
       expect(getCheckedAccount("000000051").isValid).toBeTruthy;
     });
     // Check bad numbers
-    ["49006771?", "1234?678?"].forEach(accountNumber => {
+    ["49006771?", "1234?678?"].forEach((accountNumber) => {
       const checkAccount = getCheckedAccount(accountNumber);
       test(`Output.number for bad account should be ${accountNumber}`, () => {
         expect(getCheckedAccount(accountNumber).number).toBe(

@@ -177,7 +177,7 @@ if (require.main === module) {
   console.log("\nUse case 1:");
   // 1. get the file
   const fileUseCase1 = fs.readFileSync(
-    "./src/katas/bankocr-kata/accountsUseCase1.txt",
+    "./src/katas/bankocr/accountsUseCase1.txt",
     "utf8"
   );
 
@@ -199,7 +199,7 @@ if (require.main === module) {
   console.log("\nUse case 3:");
   // 1. get the file
   const fileUseCase3 = fs.readFileSync(
-    "./src/katas/bankocr-kata/accountsUseCase3.txt",
+    "./src/katas/bankocr/accountsUseCase3.txt",
     "utf8"
   );
 
@@ -213,7 +213,7 @@ if (require.main === module) {
 
   // 3. put in a new file
   fs.writeFile(
-    "./src/katas/bankocr-kata/accountsUseCase3-output.txt",
+    "./src/katas/bankocr/accountsUseCase3-output.txt",
     accountsUseCase3,
     () => console.log("The file accountsUseCase3-output.txt was created.")
   );

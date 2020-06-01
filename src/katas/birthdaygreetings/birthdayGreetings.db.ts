@@ -7,7 +7,7 @@ sq.verbose();
 
 // Get database:
 const db = new sq.Database(
-  "./src/katas/birthdaygreetings-kata/birthdayGreetings.db3"
+  "./src/katas/birthdaygreetings/birthdayGreetings.db3"
 );
 
 const initDbTable = (

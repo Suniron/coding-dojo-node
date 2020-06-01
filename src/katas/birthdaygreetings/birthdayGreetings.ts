@@ -22,7 +22,7 @@ export class Person {
   sendBirthdayGreetings = (way: "email" | "sms") => {
     const message = {
       subject: "Happy birthday !",
-      body: `Happy birthday, dear ${this.firstName}`
+      body: `Happy birthday, dear ${this.firstName}`,
     };
 
     way === "email"
@@ -47,7 +47,7 @@ export const getPersonsFromFileContent = (content: string) => {
   content
     .replace("last_name, first_name, date_of_birth, email\n", "")
     .split("\n")
-    .forEach(line => {
+    .forEach((line) => {
       const elements = line.replace(" ", "").split(",");
       if (elements.length === 4) {
         persons.push(
@@ -76,8 +76,8 @@ export const getBirthdayReminderNote = (
     subject: "Birthday Reminder",
     header: `Dear ${senderFirstName},`,
     body: `Today is ${persons
-      .map(person => person.firstName + " " + person.lastName)
-      .join(",")}'s birthday. Don't forget to send him message !`
+      .map((person) => person.firstName + " " + person.lastName)
+      .join(",")}'s birthday. Don't forget to send him message !`,
   };
 
   return message;
@@ -87,7 +87,7 @@ export const getBirthdayReminderNote = (
 if (require.main === module) {
   // Send file to database:
   fs.readFile(
-    "./src/katas/birthdaygreetings-kata/birthdayDates.txt",
+    "./src/katas/birthdaygreetings/birthdayDates.txt",
     (err, data) => {
       if (err) {
         console.error("Can't open txt file:", err);
@@ -95,18 +95,18 @@ if (require.main === module) {
         // Get persons objects:
         const persons = getPersonsFromFileContent(data.toString());
         // Try to store persons in database:
-        persons.forEach(person => database.insertPerson(person));
+        persons.forEach((person) => database.insertPerson(person));
       }
     }
   );
 
   // Send birthdays greetings:
-  database.getPersonsWhoIsBirthday(new Date(Date.now()), persons =>
-    persons.forEach(person => person.sendBirthdayGreetings("email"))
+  database.getPersonsWhoIsBirthday(new Date(Date.now()), (persons) =>
+    persons.forEach((person) => person.sendBirthdayGreetings("email"))
   );
 
   // Reminder note:
-  database.getPersonsWhoIsBirthday(new Date("1994-04-15"), persons => {
+  database.getPersonsWhoIsBirthday(new Date("1994-04-15"), (persons) => {
     const reminderMsg = getBirthdayReminderNote("Etienne BLANC", persons);
     console.log(
       reminderMsg.subject + "\n\n",

@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start:bankocr": "ts-node src/katas/bankocr-kata/bankOCR.ts",
-    "start:birthdays": "ts-node src/katas/birthdaygreetings-kata/birthdayGreetings.ts",
+    "start:bankocr": "ts-node src/katas/bankocr/bankOCR.ts",
+    "start:birthdays": "ts-node src/katas/birthdaygreetings/birthdayGreetings.ts",
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest --watch",
