@@ -22,17 +22,20 @@ export const getScore = (frames: Array<Frame>) => {
   }
 
   // == OTHER CASES ==
-  const totalScore = 0;
+  let scoreToBoost = 0; // Boost with strike and spare
+  let totalScore = 0;
 
-  for (const [index, value] of frames.entries()) {
+  for (const [index, frame] of frames.entries()) {
     // add a scoreToAdd to boost with spare/strike
     switch (true) {
-      case value.type === "strike":
+      case frame.type === "strike":
         break;
-      case value.type === "spare":
+      case frame.type === "spare":
         break;
       default:
         // = "simple"
+        console.log("getScore =>", frame);
+        totalScore += frame.value as number;
         break;
     }
 
@@ -44,11 +47,6 @@ export const getScore = (frames: Array<Frame>) => {
   return totalScore;
 };
 
-export const getTries = (frame: Frame) => {
-  // if (frame === "X") {
-  //   return ["X"];
-  // }
-};
 /**
  *
  * @param framesInSring frames results in one string
@@ -62,12 +60,23 @@ export const getFrames = (framesInSring: string): Line => {
       return { type: "strike", value: "X" } as Strike;
     }
     // Extract tries:
-    const tries = frame.split("");
+    const tries = frame.split("").map((value, index) => {
+      if (value === "-") {
+        return 0;
+      }
+      return value;
+    });
+
     // -- spare or 2 numbers --:
     if (tries[1] === "/") {
       return { type: "spare", value: Number(tries[0]) } as Spare;
     } else {
-      return { type: "simple", value: Number(tries[0] + tries[1]) } as Simple;
+      console.log(tries);
+
+      return {
+        type: "simple",
+        value: Number(tries[0]) + Number(tries[1]),
+      } as Simple;
     }
   });
 
