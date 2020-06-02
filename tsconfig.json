@@ -14,7 +14,7 @@
       // Shortcuts:
       "@katas*": ["katas"]
     },
-    "types": ["color-name", "jest"],
+    "types": ["color-name", "jest", "node"],
     "pretty": true
   },
   "exclude": ["**/*.test.ts", "**/*.types.ts"]
