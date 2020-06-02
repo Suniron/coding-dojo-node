@@ -14,7 +14,12 @@
     "@types/sqlite3": "latest",
     "jest": "latest",
     "ts-jest": "latest",
-    "tslint": "^6.1.2",
+    "eslint": "latest",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "eslint-config-prettier": "latest",
+    "eslint-plugin-prettier": "latest",
+    "prettier": "latest",
     "typescript": "latest"
   },
   "dependencies": {
