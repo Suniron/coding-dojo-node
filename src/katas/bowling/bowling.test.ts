@@ -8,9 +8,9 @@ describe("getFrames()", () => {
   test(`${fullStrikes} should be 12 frames`, () => {
     expect(getFrames(fullStrikes)).toHaveLength(12);
   });
-  test(`${full9andMiss} and ${full5andSparesAnd5forEnd} should be 10 frames`, () => {
+  test(`${full9andMiss} and ${full5andSparesAnd5forEnd} should be 10 and 11 frames`, () => {
     expect(getFrames(full9andMiss)).toHaveLength(10);
-    expect(getFrames(full5andSparesAnd5forEnd)).toHaveLength(10);
+    expect(getFrames(full5andSparesAnd5forEnd)).toHaveLength(11);
   });
 });
 
