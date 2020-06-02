@@ -26,7 +26,6 @@ export const getScore = (frames: Array<Frame>) => {
   let totalScore = 0;
 
   for (const [index, frame] of frames.entries()) {
-    console.log(totalScore);
     // If up to 10 turn:
     if (index < 10) {
       // Apply strike and spare bonus:
