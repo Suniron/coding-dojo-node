@@ -1,4 +1,4 @@
-import { getFrames, getScore } from "./bowling";
+import { getFrames, doGame } from "./bowling";
 
 const fullStrikes = "X X X X X X X X X X X X";
 const full9andMiss = "9- 9- 9- 9- 9- 9- 9- 9- 9- 9-";
@@ -14,14 +14,14 @@ describe("getFrames()", () => {
   });
 });
 
-describe("getScore()", () => {
+describe("doGame()", () => {
   test(`should ${fullStrikes} should have a score of 300`, () => {
-    expect(getScore(getFrames(fullStrikes))).toBe(300);
+    expect(doGame(fullStrikes)).toBe(300);
   });
   test(`should ${full9andMiss} should have a score of 90`, () => {
-    expect(getScore(getFrames(full9andMiss))).toBe(90);
+    expect(doGame(full9andMiss)).toBe(90);
   });
   test(`should ${full5andSparesAnd5forEnd} should have a score of 150`, () => {
-    expect(getScore(getFrames(full5andSparesAnd5forEnd))).toBe(150);
+    expect(doGame(full5andSparesAnd5forEnd)).toBe(150);
   });
 });
