@@ -74,14 +74,14 @@ export const getScore = (frames: Array<Frame>) => {
 
 /**
  *
- * @param framesInSring frames results in one string
+ * @param framesSring frames results in one string
  *
  * Return an array of frames
  */
-export const getFrames = (framesInSring: string): Line => {
+export const getFrames = (framesSring: string): Line => {
   const frames: Array<Frame> = [];
 
-  framesInSring.split(" ").forEach((frame) => {
+  framesSring.split(" ").forEach((frame) => {
     // -- strike --
     if (frame === "X") {
       return frames.push({ type: "strike" } as Strike);
@@ -123,4 +123,17 @@ export const getFrames = (framesInSring: string): Line => {
   return frames;
 };
 
-// TODO: gèrer 5/5 comme un spare + 5
+export const doGame = (framesString: string): number => {
+  const frames = getFrames(framesString);
+  const score = getScore(frames);
+
+  return score;
+};
+
+// == MAIN ==
+if (require.main === module) {
+  console.log("It's a good night for bowling... :-)");
+  console.log(
+    `Jim, you scored ${doGame("3- X 36 8/ 23 X X 12 3/ 71")} points !`
+  );
+}
