@@ -27,21 +27,24 @@ export const getScore = (frames: Array<Frame>) => {
 
   for (const [index, frame] of frames.entries()) {
     console.log(totalScore);
-    // Apply strike and spare bonus:
-    if (spareBonus || strikeBonus) {
-      if (frame.type === "simple") {
-        totalScore += frame.values[0];
-        if (strikeBonus) {
-          totalScore += frame.values[1];
+    // If up to 10 turn:
+    if (index < 10) {
+      // Apply strike and spare bonus:
+      if (spareBonus || strikeBonus) {
+        if (frame.type === "simple") {
+          totalScore += frame.values[0];
+          if (strikeBonus) {
+            totalScore += frame.values[1];
+          }
+        } else if (frame.type === "strike") {
+          totalScore += 10;
+        } else if (frame.type === "spare") {
+          totalScore += frame.value;
         }
-      } else if (frame.type === "strike") {
-        totalScore += 10;
-      } else if (frame.type === "spare") {
-        totalScore += frame.value;
+        // remove bonus
+        spareBonus = false;
+        strikeBonus = false;
       }
-      // remove bonus
-      spareBonus = false;
-      strikeBonus = false;
     }
 
     // Check score and bonus:
