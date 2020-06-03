@@ -3,6 +3,7 @@
     "start:bankocr": "ts-node src/katas/bankocr/bankOCR.ts",
     "start:birthdays": "ts-node src/katas/birthdaygreetings/birthdayGreetings.ts",
     "start:bowling": "ts-node src/katas/bowling/bowling.ts",
+    "start:booking": "ts-node src/katas/cqrsBooking/cqrsBooking.ts",
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest --watch",
