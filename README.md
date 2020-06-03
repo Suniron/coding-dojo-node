@@ -43,6 +43,12 @@ Preview: <https://pacman-codingdojo.netlify.app/>
 Code: <https://github.com/Suniron/Langtonant-codingdojo>
 Preview: <https://langtonant-codingdojo.netlify.app/>
 
+#### CQRS Booking
+
+A simple booking soluiton in CQRS architecture.
+
+`yarn start:booking`
+
 ## Tests
 
 I choose ts-jest. Run with `yarn test` or `yarn jest`
