@@ -3,6 +3,8 @@
 Some katas of <http://codingdojo.org/kata/> with Node (Typescript)
 See Python3 katas at Some katas of <http://codingdojo.org/kata/> with Python3
 
+_I use TDD approach to solve all katas_
+
 ## Prerequisites
 
 - Yarn
