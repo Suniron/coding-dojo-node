@@ -4,6 +4,7 @@
     "start:birthdays": "ts-node src/katas/birthdaygreetings/birthdayGreetings.ts",
     "start:bowling": "ts-node src/katas/bowling/bowling.ts",
     "start:booking": "ts-node src/katas/cqrsBooking/cqrsBooking.ts",
+    "christmas": "ts-node src/katas/christmasDelivery/christmasDelivery.ts",
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest --watch",

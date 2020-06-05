@@ -51,6 +51,12 @@ A simple booking soluiton in CQRS architecture.
 
 `yarn start:booking`
 
+#### Christmas Delivery
+
+Santa Claus is having to change his existing process ;-)
+
+`yarn start:christmas`
+
 ## Tests
 
 I choose ts-jest. Run with `yarn test` or `yarn jest`
