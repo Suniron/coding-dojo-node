@@ -26,8 +26,10 @@ export class Room {
   isFree(arrival: Date, departure: Date) {
     const booked = this.bookings.find(
       (booking) =>
-        (arrival > booking.date.arrival && arrival < booking.date.departure) ||
-        (departure > booking.date.arrival && departure < booking.date.departure)
+        (arrival >= booking.date.arrival &&
+          arrival <= booking.date.departure) ||
+        (departure >= booking.date.arrival &&
+          departure <= booking.date.departure)
     );
 
     return booked ? false : true;
@@ -40,7 +42,21 @@ export class Registry {
     this.rooms = rooms;
   }
 
-  write = () => {};
+  write = (
+    clientId: string,
+    roomName: string,
+    date: { arrival: Date; departure: Date }
+  ) => {
+    const roomIndex = this.rooms.findIndex((room) => room.name === roomName);
+
+    // If no room with roomName
+    if (roomIndex === -1) {
+      return;
+    }
+
+    this.rooms[roomIndex].bookings.push(new Booking(clientId, date));
+  };
+
   read = (filters?: {
     date?: { arrival: Date; departure: Date };
     roomName?: string;
@@ -62,14 +78,9 @@ export class Registry {
       );
       return freeRooms;
     }
-  };
 
-  bookARoom = (
-    clientId: string,
-    roomName: string,
-    arrivalDate: Date,
-    departureDate: Date
-  ) => {};
+    return [];
+  };
 }
 
 export class Hotel {
@@ -79,28 +90,75 @@ export class Hotel {
     this.name = name;
     this.registry = registry;
   }
+
+  bookARoom = (
+    clientId: string,
+    roomName: string,
+    date: { arrival: Date; departure: Date }
+  ): boolean => {
+    const room = this.registry.rooms.find((room) => room.name === roomName);
+
+    // If room does not exist or is busy:
+    if (!room || !room.isFree(date.arrival, date.departure)) {
+      return false;
+    }
+
+    this.registry.write(clientId, roomName, date);
+
+    return true;
+  };
 }
 
-/*
-// == USER STORY ==
+// == USER STORIES ==
 if (require.main === module) {
+  // == PREPARE ==
   const rooms = [
     new Room("Red room"),
     new Room("French room"),
     new Room("NSFW room"),
   ];
-  const hotel = new Hotel("Suniron Hotel", rooms);
+  const registry = new Registry(rooms);
+  const hotel = new Hotel("Suniron Hotel", registry);
+  // Add some bookings:
+  hotel.registry.rooms[0].bookings = [
+    new Booking("mrWhite", {
+      arrival: new Date("2020-12-12T14:00:00"),
+      departure: new Date("2020-12-13T10:00:00"),
+    }),
+    new Booking("#mrBlanc", {
+      arrival: new Date("2020-12-14T14:00:00"),
+      departure: new Date("2020-12-16T10:00:00"),
+    }),
+  ];
+
+  // == STORY 1 ==
+  console.log("\n******************************");
   console.log(`** WELCOME TO ${hotel.name.toLocaleUpperCase()} **`);
-  console.log(" ==== STORY 1 ====");
-  console.log("User: Hey, i want to see all free rooms.");
-  console.log("Suniron: No problem, look this screen:");
+  console.log("******************************");
+  console.log("\n==== STORY 1 ====");
+  console.log("User: Hey, i want to see all free rooms!");
   console.log(
-    hotel
-      .getFreeRooms()
-      .map((room) => room)
-      .join("\n")
+    "Receptionist: Ok, we got these:",
+    (hotel.registry.read({
+      date: {
+        arrival: new Date("2020-12-12T15:00:00"),
+        departure: new Date("2020-12-13T10:00:00"),
+      },
+    }) as Array<Room>)
+      .map((freeRoom) => freeRoom.name)
+      .join(", ") + "."
   );
-  console.log(" ==== STORY 2 ====");
-  console.log("TODO...");
+
+  // == STORY 2 ==
+  console.log("\n==== STORY 2 ====");
+  console.log("User: I want to book French Room tonight, is it possible?");
+  console.log(
+    "Receptionist: Well, i'm booking that for you ;-). Please, wait..."
+  );
+  // Book the room:
+  hotel.bookARoom("Mr BLANC", "French Room", {
+    arrival: new Date(Date.now()),
+    departure: new Date(Date.now() + 1),
+  });
+  console.log("Receptionist: ... OK! I give you the keys <8-)");
 }
-*/

@@ -87,4 +87,60 @@ describe("Registry object...", () => {
       });
     });
   });
+  describe("write() method:", () => {
+    const bookingsCountBefore = hotel.registry.rooms[0].bookings.length;
+    test(`should bookings length should be +1 after write`, () => {
+      // Write:
+      hotel.registry.write("clientTest", rooms[0].name, {
+        arrival: new Date("2020-12-15T15:00:00"),
+        departure: new Date("2020-12-16T10:00:00"),
+      });
+      // Test:
+      expect(hotel.registry.rooms[0].bookings.length).toBe(
+        bookingsCountBefore + 1
+      );
+    });
+    test(`should bookings length should be +1 again after write`, () => {
+      const bookingsCountBefore = hotel.registry.rooms[0].bookings.length;
+      // Write:
+      hotel.registry.write("clientTest", rooms[0].name, {
+        arrival: new Date("2020-12-16T15:00:00"),
+        departure: new Date("2020-12-17T10:00:00"),
+      });
+      // Test:
+      expect(hotel.registry.rooms[0].bookings.length).toBe(
+        bookingsCountBefore + 1
+      );
+    });
+  });
+});
+
+describe("Hotel object ...", () => {
+  describe("bookARoom() method:", () => {
+    const bookingsCountBefore = hotel.registry.rooms[1].bookings.length;
+
+    test("should booking success be truthy", () => {
+      expect(
+        hotel.bookARoom("clientTest", rooms[1].name, {
+          arrival: new Date("2020-12-17T15:00:00"),
+          departure: new Date("2020-12-18T10:00:00"),
+        })
+      ).toBeTruthy();
+    });
+
+    test("should bookings increase of 1", () => {
+      expect(hotel.registry.rooms[1].bookings.length).toBe(
+        bookingsCountBefore + 1
+      );
+    });
+
+    test("should booking failed be falsy (date already booked)", () => {
+      expect(
+        hotel.bookARoom("clientTest", rooms[1].name, {
+          arrival: new Date("2020-12-17T15:00:00"),
+          departure: new Date("2020-12-18T10:00:00"),
+        })
+      ).toBeFalsy();
+    });
+  });
 });
